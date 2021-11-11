@@ -6,7 +6,7 @@ import { MetricSum } from "../domain/MetricSum";
 import { MetricValue } from "../domain/MetricValue";
 
 export class InMemoryMetricRepository implements MetricRepository{
-    private secondsInOneHour: number = 60 * 60;
+    private secondsInOneHour: number = 60;
     private metrics: Metric[] = [];
     
     save(metric: Metric): void {
@@ -15,11 +15,12 @@ export class InMemoryMetricRepository implements MetricRepository{
 
     sum(name: MetricName): MetricSum {
 
-        const now: MetricDatetime    = MetricDatetime.now();
+        const   now: MetricDatetime = MetricDatetime.now();        
+        let summary: Metric         = new Metric(name, new MetricValue(0), now);
         
-        let summary: Metric = this.metrics.reduce((summary: Metric, metric: Metric, index: number) => {
+        summary = this.metrics.reduce((summary: Metric, metric: Metric, index: number) => {
             return this.sumOrRemove(summary, metric, index, now, name);
-        });
+        }, summary);
 
         return new MetricSum(
             name,
@@ -37,7 +38,7 @@ export class InMemoryMetricRepository implements MetricRepository{
         }
 
         if(this.sameName(metric, name)){
-            summary.getValue().sum(metric.getValue());
+            summary.getValue().sum(metric.getValue())
         }
 
         return summary;
