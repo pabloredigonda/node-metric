@@ -10,7 +10,12 @@ export class MetricValue {
         return this.value;
     }
 
-    equal(other: MetricValue): boolean {
+    public equal(other: MetricValue): boolean {
         return this.value === other.getValue();
+    }
+
+    public sum(other: MetricValue): this {
+        this.value += other.getValue();
+        return this;
     }
 }
