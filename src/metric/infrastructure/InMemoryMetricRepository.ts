@@ -15,7 +15,6 @@ export class InMemoryMetricRepository implements MetricRepository{
 
     sum(name: MetricName): MetricSum {
 
-        const secondsInOneHourt : number            = 60 * 60;
         const now               : MetricDatetime    = MetricDatetime.now();
         let sum                 : number            = 0;
         

@@ -12,19 +12,6 @@ export class MetricCreator{
         this.repository = repository;
     }
 
-/*
-    public create(name: MetricName, value: MetricValue): void{
-        let metric = new Metric(
-            name,
-            value,
-            new MetricDatetime('2021-11-01 01:00:00')
-        );
-        
-        console.log("creator.create");
-
-        this.repository.create(metric);
-    }
-*/
     public create(name: MetricName, value: MetricValue): void{
         let metric = new Metric(
             name,

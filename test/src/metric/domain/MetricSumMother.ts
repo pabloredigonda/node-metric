@@ -1,5 +1,4 @@
 import { Metric } from "../../../../src/metric/domain/Metric";
-import { MetricDatetime } from "../../../../src/metric/domain/MetricDatetime";
 import { MetricName } from "../../../../src/metric/domain/MetricName";
 import { MetricSum } from "../../../../src/metric/domain/MetricSum";
 import { MetricValue } from "../../../../src/metric/domain/MetricValue";

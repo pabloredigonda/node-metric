@@ -1,4 +1,3 @@
-import { MetricDatetime } from "../../domain/MetricDatetime";
 import { MetricName } from "../../domain/MetricName";
 import { MetricRepository } from "../../domain/MetricRepository";
 import { MetricSum } from "../../domain/MetricSum";

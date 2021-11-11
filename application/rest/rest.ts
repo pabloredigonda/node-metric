@@ -1,8 +1,5 @@
 import express from "express"
-import * as bodyParser from 'body-parser';
-import { RegisterMetricController } from './metric/action/register/RegisterMetricController';
 import { DI } from './di';
-const port = 3000
 
 export class Rest{
 
