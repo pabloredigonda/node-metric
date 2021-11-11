@@ -9,33 +9,48 @@ import { SumMetricAction } from '../../src/metric/action/sum/SumMetricAction';
 
 export class DI{
 
-  private repository: InMemoryMetricRepository | undefined;
+  private repository          : InMemoryMetricRepository;
+  private calculator          : MetricCalculator;
+  private creator             : MetricCreator;
+  private sumAction           : SumMetricAction;
+  private registerAction      : RegisterMetricAction;
+  private sumController       : SumMetricController;
+  private registerController  : RegisterMetricController;
 
+  public constructor(){
+    this.repository         = new InMemoryMetricRepository;
+    this.calculator         = new MetricCalculator(this.repository);
+    this.creator            = new MetricCreator(this.repository);
+    this.sumAction          = new SumMetricAction(this.calculator);
+    this.registerAction     = new RegisterMetricAction(this.creator);
+    this.sumController      = new SumMetricController(this.sumAction);
+    this.registerController = new RegisterMetricController(this.registerAction);
+  }
 
   public sumMetricController(): SumMetricController {
-    return new SumMetricController(this.sumMetricAction());
+    return this.sumController;
   }
   public registerMetricController(): RegisterMetricController {
-    return new RegisterMetricController(this.registerMetricAction());
+    return this.registerController;
   }
 
   public registerMetricAction(): RegisterMetricAction {
-    return new RegisterMetricAction(this.metricCreator());
+    return this.registerAction;
   }
 
   public sumMetricAction(): SumMetricAction {
-    return new SumMetricAction(this.metricCalculator());
+    return this.sumAction;
   }
 
   public metricCreator(): MetricCreator {
-    return new MetricCreator(this.metricRepository());
+    return this.creator;
   }
 
   public metricCalculator(): MetricCalculator {
-    return new MetricCalculator(this.metricRepository());
+    return this.calculator;
   }
 
   public metricRepository(): MetricRepository {
-    return this.repository ? this.repository : this.repository =new InMemoryMetricRepository();
+    return this.repository;
   }
 }
